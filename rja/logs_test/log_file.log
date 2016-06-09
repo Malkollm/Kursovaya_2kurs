@@ -1,0 +1,12 @@
+07:35:01,107 [INFO] User.main:24 - This is some message
+07:35:01,109 [INFO] User.main:25 - 1459923493
+07:51:30,935 [ERROR] User.main:55 - error message: Connection reset
+07:51:30,937 [FATAL] User.main:56 - fatal error message: Connection reset
+07:51:30,937 [ERROR] root.main:57 - error message: Connection reset
+07:51:30,937 [FATAL] root.main:58 - fatal error message: Connection reset
+10:42:32,618 [INFO] User.main:24 - This is some message
+10:42:32,620 [INFO] User.main:25 - -1146646015
+10:48:00,459 [INFO] User.main:24 - This is some message
+10:48:00,462 [INFO] User.main:25 - -1786775423
+17:03:38,213 [INFO] User.main:24 - This is some message
+17:03:38,619 [INFO] User.main:25 - -129615887

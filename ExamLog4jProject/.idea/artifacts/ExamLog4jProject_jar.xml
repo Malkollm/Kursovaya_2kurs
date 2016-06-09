@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="ExamLog4jProject:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ExamLog4jProject_jar</output-path>
+    <root id="archive" name="ExamLog4jProject.jar">
+      <element id="module-output" name="ExamLog4jProject" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/apache-log4j-1.2.17/log4j-1.2.17.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
