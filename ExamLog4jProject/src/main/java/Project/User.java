@@ -1,4 +1,4 @@
-package com.devcolibri.logpack;
+package Project;
 
 import java.util.Random;
 

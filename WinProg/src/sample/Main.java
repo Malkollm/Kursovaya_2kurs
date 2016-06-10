@@ -10,10 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -52,45 +52,50 @@ public class Main extends Application { // JavaFX приложения насл�
             // Этот контейнер мы будем считать корневым, т.е. все элементы нашего приложения будут содержаться в нем
             final Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
-            primaryStage.setTitle("Client"); // задаем заголовок окна
+            primaryStage.setTitle("Помогалка"); // задаем заголовок окна
 
             // создаем сцену с заданными шириной и высотой и содержащую наш корневым контейнером, и связываем ее с окном
-            primaryStage.setScene(new Scene(root, 450, 300));
+            primaryStage.setScene(new Scene(root, 300, 400));
 
             // гибкая сетка из столбцов и строк
             grid.setAlignment(Pos.CENTER); // сетка в центре
-            grid.setHgap(10); //пробелы между строками и столбцами
-            grid.setVgap(10);
+            grid.setHgap(20); //пробелы между строками и столбцами
+            grid.setVgap(20);
             grid.setPadding(new Insets(30, 30, 30, 30)); //пространство вокруг сетки по 25 пикселей
 
             // сцена шириной 300 и высотой 275
-            Scene scene = new Scene(grid, 400, 375);
+            Scene scene = new Scene(grid, 400, 300);
             primaryStage.setScene(scene);
 
             // объект текст который нельзя изменить
-            Text sceneTitle = new Text("Команды");
+            Text sceneTitle = new Text("Что вы ищете?");
             // задание шрифта/размера/стиля
             sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
             // добавляет объект к сцене
             grid.add(sceneTitle, 0, 0, 2, 1);
 
             //метка
-            Label userName = new Label("Команда:");
+            Label userName = new Label("Введите запрос");
             grid.add(userName, 0, 1);
 
             // текстовое поле для ввода команд
            // line = keyboard.readLine();
             final TextField userTextField = new TextField();
+            userTextField.setMinSize(150,25);
             grid.add(userTextField, 1, 1);
 
 
             // метка
-            Label pw = new Label("Ответ:");
+            Label pw = new Label("Расположение");
             grid.add(pw, 0, 2);
+            // метка
+            final Label raspologenye = new Label(" - ");
+            grid.add(raspologenye, 1, 2);
 
-            // текстовое поле для вывода результата запроса
+            /*// текстовое поле для вывода результата запроса
             final TextField resultTextField = new TextField();
-            grid.add(resultTextField, 1, 2);
+            grid.add(resultTextField, 1, 2);*/
+
 
 
             ////////////////////////////////
@@ -102,7 +107,7 @@ public class Main extends Application { // JavaFX приложения насл�
             grid.add(lSend, 0, 4);
 
             // кнопка проверки команды у сервера
-            Button bSend = new Button("Проверить");
+            Button bSend = new Button("Поиск");
             // вспомогательный объект с отступами 10 пикселей
             // необходим для выравнивания кнопки
             HBox hbSend = new HBox(10);
@@ -113,7 +118,7 @@ public class Main extends Application { // JavaFX приложения насл�
             grid.add(hbSend, 1, 4);
 
             // метка
-            Label lInstall = new Label("Установка сервера:");
+           /* Label lInstall = new Label("Установка сервера:");
             grid.add(lInstall, 0, 5);
 
             // кнопка запуска сервера
@@ -125,14 +130,14 @@ public class Main extends Application { // JavaFX приложения насл�
 
             // метка
             Label lStart = new Label("Запуск сервера:");
-            grid.add(lStart, 0, 6);
+            grid.add(lStart, 0, 6);*/
 
             // кнопка запуска сервера
-            Button bStart = new Button("Запустить");
-            HBox hbStart = new HBox(10);
-            hbStart.setAlignment(Pos.BOTTOM_RIGHT);
-            hbStart.getChildren().add(bStart);
-            grid.add(hbStart, 1, 6);
+            Button bClear = new Button("Очистить");
+            HBox hbClear = new HBox(10);
+            hbClear.setAlignment(Pos.BOTTOM_RIGHT);
+            hbClear.getChildren().add(bClear);
+            grid.add(hbClear, 1, 5);
 
             Button bTest = new Button("Справка");
             final HBox hbTest = new HBox(10);
@@ -141,36 +146,37 @@ public class Main extends Application { // JavaFX приложения насл�
             grid.add(hbTest, 1, 7);
 
 
+
             ////////////////////////////////
             /// СОБЫТИЯ       ///
             ///////////////////////////////
 
             // текст оповещения неправильного ввода команды
-            final Text actionSend = new Text();
-            grid.add(actionSend, 1, 8);
+            /*final Text actionSend = new Text();
+            grid.add(actionSend, 1, 8);*/
 
             // событие кнопки, если нажата то выводим оповещение красного цвета
             // событие кнопки "Проверить"
             bSend.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
-                    resultTextField.clear(); //чистим окно результата
+                   // resultTextField.clear(); //чистим окно результата
                     String text = userTextField.getText(); // получаем команду от клиента
                     try {
                         out.writeUTF(text); //отправляем серверу
                         out.flush(); //прекращаем поток данных
                         text = in.readUTF(); //получаем ответ на запрос
-                        resultTextField.setText(text); //выводим в окно результата
+                        raspologenye.setText(text); //выводим в окно результата
                     } catch (IOException e1) {
                         System.out.println("Ошибочка с отправкой/получением команды");
                     }
-                    actionSend.setFill(Color.FIREBRICK);
-                    actionSend.setText("Введите команду");
+                    /*actionSend.setFill(Color.FIREBRICK);
+                    actionSend.setText("Введите команду");*/
                 }
             });
 
 
-            // текст оповещения если кнопка нажата
+          /*  // текст оповещения если кнопка нажата
             final Text actionInstall = new Text();
             grid.add(actionInstall, 1, 7);
 
@@ -195,50 +201,67 @@ public class Main extends Application { // JavaFX приложения насл�
 
             // текст оповещения если кнопка нажата
             final Text actionStart = new Text();
-            grid.add(actionStart, 1, 8);
+            grid.add(actionStart, 1, 8);*/
 
             // событие кнопки, если нажата то выводим оповещение красного цвета
             // событие кнопки "Запустить"
-            bStart.setOnAction(new EventHandler<ActionEvent>() {
+            bClear.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
-                    // запуск внешнего приложения
-                    Runtime runtime = Runtime.getRuntime();
-                    Process p = null;
-                    String s = "c:/rja/bin/StartApp-NT.bat";
-                    // exec - выполнение
-                    try {
-                        p = runtime.exec(s);
-                    } catch (Exception ee) {
-                        System.out.println("Array: " + s);
-                    }
-                    actionSend.setFill(Color.FIREBRICK);
+                 userTextField.clear();
+                    raspologenye.setText(" - ");
+
+                    /*actionSend.setFill(Color.FIREBRICK);
                     actionSend.setText("Запущено");
 
-                    resultTextField.setText("OK");
+                    resultTextField.setText("OK");*/
 
                 }
             });
             // событие кнопки, если нажата то выводим оповещение красного цвета
             // событие кнопки "Справка"
+
             bTest.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
 
                     Stage dialogStage = new Stage();
                     dialogStage.setTitle("Справка");
+                    dialogStage.setMinWidth(500);
+                    dialogStage.setMinHeight(350);
+                    String string = "Основная задача программы: пользователь вводит команду запроса, " +
+                            "\n к примеру Хирургическое отделение " +
+                            "\n и в строке результата ему будет указано как пройти " +
+                            "\n до нужного ему отделения или места в больнице" +
+                            "\n Команды для поиска(выберите нужную и вбейте в поиск): " +
+                            "\n Дата" +
+                            "\n Хирургическое отделение" +
+                            "\n Родильное отделение" +
+                            "\n Онкологическое отделение" +
+                            "\n Кардиологическое отделение" +
+                            "\n Эндоскопическое отделение" +
+                            "\n Стоматологическое отделение" +
+                            "\n Нефрологическое отделение" +
+                            "\n Кризисное отделение" +
+                            "\n Морг" +
+                            "\n Туалет" +
+                            "\n Регистратура";
+                    final TextArea textArea = new TextArea(string);
+                    textArea.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+                    textArea.setMaxSize(500, 600);
+                    Scene scene = new Scene(textArea);
+                    dialogStage.setScene(scene);
                     dialogStage.showAndWait();
 
-                    actionSend.setFill(Color.FIREBRICK);
-                    actionSend.setText("Запущено");
+                    /*actionSend.setFill(Color.FIREBRICK);
+                    actionSend.setText("Запущено");*/
                 }
             });
 
             primaryStage.show(); // запускаем окно
 
         } catch (Exception ex) {
-            System.out.println("Ошибочка! Запустика друже сервер для начала,");
-            System.out.println(" а потом и пытай на здоровье.");
+            System.out.println("Ошибочка!");
         }
     }
 
