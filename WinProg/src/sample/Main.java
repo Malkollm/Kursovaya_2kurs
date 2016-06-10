@@ -23,7 +23,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class Main extends Application { // JavaFX приложения наследуют класс javafx.application.Application
+public class Main extends Application {
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
@@ -46,15 +46,14 @@ public class Main extends Application { // JavaFX приложения насл�
 
 
             final GridPane grid = new GridPane();
-            // Stage - это контейнер, ассоциированный с окном
+            // Stage - окно
 
-            // Если вы загляните в файл sample.fxml, то у видете в нем XML объявление элемента GridPane, т.е. табличного контейнера
-            // Этот контейнер мы будем считать корневым, т.е. все элементы нашего приложения будут содержаться в нем
+            // в sample.fxml прописываются компоненты, их свойства
             final Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
             primaryStage.setTitle("Помогалка"); // задаем заголовок окна
 
-            // создаем сцену с заданными шириной и высотой и содержащую наш корневым контейнером, и связываем ее с окном
+            // создаем сцену с заданными шириной и высотой  и связываем ее с окном
             primaryStage.setScene(new Scene(root, 300, 400));
 
             // гибкая сетка из столбцов и строк
@@ -79,32 +78,24 @@ public class Main extends Application { // JavaFX приложения насл�
             grid.add(userName, 0, 1);
 
             // текстовое поле для ввода команд
-           // line = keyboard.readLine();
             final TextField userTextField = new TextField();
-            userTextField.setMinSize(150,25);
-            grid.add(userTextField, 1, 1);
+            userTextField.setMinSize(150,25); //минимальный размер окна
+            grid.add(userTextField, 1, 1); //расположение на сцене
 
 
             // метка
-            Label pw = new Label("Расположение");
-            grid.add(pw, 0, 2);
+            Label lposition = new Label("Расположение");
+            grid.add(lposition, 0, 2);
             // метка
-            final Label raspologenye = new Label(" - ");
-            grid.add(raspologenye, 1, 2);
-
-            /*// текстовое поле для вывода результата запроса
-            final TextField resultTextField = new TextField();
-            grid.add(resultTextField, 1, 2);*/
+            final Label lraspologenye = new Label(" - ");
+            grid.add(lraspologenye, 1, 2);
 
 
 
             ////////////////////////////////
-            /// КНОПКИ      ///
+            /// КНОПКИ      ///////////////
             ///////////////////////////////
 
-            // метка
-            Label lSend = new Label("Поиск на сервере:");
-            grid.add(lSend, 0, 4);
 
             // кнопка проверки команды у сервера
             Button bSend = new Button("Поиск");
@@ -115,119 +106,66 @@ public class Main extends Application { // JavaFX приложения насл�
             hbSend.setAlignment(Pos.BOTTOM_RIGHT);
             hbSend.getChildren().add(bSend);
             // поместим вспомогалку в сетку
-            grid.add(hbSend, 1, 4);
+            grid.add(hbSend, 1, 3);
 
-            // метка
-           /* Label lInstall = new Label("Установка сервера:");
-            grid.add(lInstall, 0, 5);
 
-            // кнопка запуска сервера
-            Button bInstall = new Button("Установить");
-            HBox hbInstall = new HBox(10);
-            hbInstall.setAlignment(Pos.BOTTOM_RIGHT);
-            hbInstall.getChildren().add(bInstall);
-            grid.add(hbInstall, 1, 5);
-
-            // метка
-            Label lStart = new Label("Запуск сервера:");
-            grid.add(lStart, 0, 6);*/
-
-            // кнопка запуска сервера
+            // кнопка очистки поля запрос
             Button bClear = new Button("Очистить");
             HBox hbClear = new HBox(10);
             hbClear.setAlignment(Pos.BOTTOM_RIGHT);
             hbClear.getChildren().add(bClear);
-            grid.add(hbClear, 1, 5);
+            grid.add(hbClear, 1, 4);
 
-            Button bTest = new Button("Справка");
-            final HBox hbTest = new HBox(10);
-            hbTest.setAlignment(Pos.BOTTOM_RIGHT);
-            hbTest.getChildren().add(bTest);
-            grid.add(hbTest, 1, 7);
+            Button bHelp = new Button("Справка");
+            final HBox hbHelp = new HBox(10);
+            hbHelp.setAlignment(Pos.BOTTOM_RIGHT);
+            hbHelp.getChildren().add(bHelp);
+            grid.add(hbHelp, 0, 4);
 
 
 
-            ////////////////////////////////
-            /// СОБЫТИЯ       ///
+            /////////////////////////////////
+            /// СОБЫТИЯ       //////////////
             ///////////////////////////////
 
-            // текст оповещения неправильного ввода команды
-            /*final Text actionSend = new Text();
-            grid.add(actionSend, 1, 8);*/
 
-            // событие кнопки, если нажата то выводим оповещение красного цвета
-            // событие кнопки "Проверить"
+            // кнопка "Проверить"
             bSend.setOnAction(new EventHandler<ActionEvent>() {
+                /*Аннотация-о том что мы собираемся переопределить метод базового класса
+                * если такогого не окажется то получим предупреждение компилятора о
+                * том что переопределение не произошло*/
                 @Override
                 public void handle(ActionEvent e) {
-                   // resultTextField.clear(); //чистим окно результата
                     String text = userTextField.getText(); // получаем команду от клиента
                     try {
                         out.writeUTF(text); //отправляем серверу
                         out.flush(); //прекращаем поток данных
                         text = in.readUTF(); //получаем ответ на запрос
-                        raspologenye.setText(text); //выводим в окно результата
+                        lraspologenye.setText(text); //выводим результат
                     } catch (IOException e1) {
                         System.out.println("Ошибочка с отправкой/получением команды");
                     }
-                    /*actionSend.setFill(Color.FIREBRICK);
-                    actionSend.setText("Введите команду");*/
                 }
             });
 
 
-          /*  // текст оповещения если кнопка нажата
-            final Text actionInstall = new Text();
-            grid.add(actionInstall, 1, 7);
-
-            // событие кнопки, если нажата то выводим оповещение красного цвета
-            // событие кнопки "Установить"
-            bInstall.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    // запуск приложения
-                    Runtime runtime = Runtime.getRuntime();
-                    Process p = null;
-                    String str = "C:/Kursov_Project/rja/bin/InstallApp-NT.bat";
-                    try {
-                        p = runtime.exec(str);
-                    } catch (Exception ee) {
-                        System.out.println("Array: " + str);
-                    }
-                    actionSend.setFill(Color.FIREBRICK);
-                    actionSend.setText("Установленно");
-                }
-            });
-
-            // текст оповещения если кнопка нажата
-            final Text actionStart = new Text();
-            grid.add(actionStart, 1, 8);*/
-
-            // событие кнопки, если нажата то выводим оповещение красного цвета
-            // событие кнопки "Запустить"
+            // кнопка "Очистить"
             bClear.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
                  userTextField.clear();
-                    raspologenye.setText(" - ");
-
-                    /*actionSend.setFill(Color.FIREBRICK);
-                    actionSend.setText("Запущено");
-
-                    resultTextField.setText("OK");*/
-
+                    lraspologenye.setText(" - ");
                 }
             });
-            // событие кнопки, если нажата то выводим оповещение красного цвета
-            // событие кнопки "Справка"
 
-            bTest.setOnAction(new EventHandler<ActionEvent>() {
+
+            // событие кнопки "Справка"
+            bHelp.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
-
-                    Stage dialogStage = new Stage();
-                    dialogStage.setTitle("Справка");
-                    dialogStage.setMinWidth(500);
+                    Stage dialogStage = new Stage(); //новое окно под справку
+                    dialogStage.setTitle("Справка"); //заголовок
+                    dialogStage.setMinWidth(500); //размер окна
                     dialogStage.setMinHeight(350);
                     String string = "Основная задача программы: пользователь вводит команду запроса, " +
                             "\n к примеру Хирургическое отделение " +
@@ -246,15 +184,12 @@ public class Main extends Application { // JavaFX приложения насл�
                             "\n Морг" +
                             "\n Туалет" +
                             "\n Регистратура";
-                    final TextArea textArea = new TextArea(string);
-                    textArea.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
-                    textArea.setMaxSize(500, 600);
-                    Scene scene = new Scene(textArea);
-                    dialogStage.setScene(scene);
-                    dialogStage.showAndWait();
-
-                    /*actionSend.setFill(Color.FIREBRICK);
-                    actionSend.setText("Запущено");*/
+                    final TextArea textArea = new TextArea(string); //компонент текстовое поле
+                    textArea.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14)); //шрифт
+                    textArea.setMaxSize(500, 600); //размер компоненты
+                    Scene scene = new Scene(textArea); //создаем сцену для выравнивания компоненты
+                    dialogStage.setScene(scene);//добавляем сцену в окно
+                    dialogStage.showAndWait(); //окно на виду, ожидая закрытия пользователем
                 }
             });
 

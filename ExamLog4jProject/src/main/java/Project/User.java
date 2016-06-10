@@ -8,7 +8,7 @@ public class User {
     private String lastName;
 
     public String showMeMessage() {
-        return "This is some message";
+        return "Random number of this log";
     }
 
     public Integer giveMeASign() {
@@ -24,9 +24,6 @@ public class User {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;

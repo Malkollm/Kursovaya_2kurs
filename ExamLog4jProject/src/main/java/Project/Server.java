@@ -12,13 +12,16 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Server {
+    // Подключаем запись логов к проекту, логи пишутся в файл и консоль
     static final org.apache.log4j.Logger rootLogger = LogManager.getRootLogger();
     static final org.apache.log4j.Logger userLogger = LogManager.getLogger(User.class);
 
     public static void main(String[] args) throws UnknownHostException {
+        //Объект класса user
         User user = new User();
-        user.setName("Marsel");
-        user.setLastName("Fatkullin");
+        //передаем методу из класса user имя
+        user.setName("Ulia");
+        //Выводим 2 сообщения уровня Инфо
         userLogger.info(user.showMeMessage());
         userLogger.info(user.giveMeASign());
 
@@ -28,7 +31,7 @@ public class Server {
             System.out.println("Waiting for a client...");
 
             Socket socket = ss.accept(); // заставляем сервер ждать подключений и выводим сообщение когда кто-то связался с сервером
-            System.out.println("Got a client :) ... Finally, someone saw me through all the cover!");
+            System.out.println("Got a client :)");
             System.out.println();
 
             // Берем входной и выходной потоки сокета, теперь можем получать и отсылать данные клиенту.
@@ -40,12 +43,13 @@ public class Server {
             DataOutputStream out = new DataOutputStream(sout);
 
 
-            String line = null;
-            while (true) {
+            String line = null; //Строка необходима для принятия и передачи сообщения между клиентом и сервером
+            while (true) { //Бесконечный цикл чтобы связь шла постоянно
                 line = in.readUTF(); // ожидаем пока клиент пришлет строку текста.
-                System.out.println("The dumb client just sent me this line : " + line);
+                System.out.println("Client just sent me this line : " + line);
                 System.out.println("I'm sending it back...");
 
+                //Если строка сходится с командой на сервере то отсылаем обратно ответ на запрос
                 if (line.equalsIgnoreCase(Commands.str_const_surgery)) {
                     out.writeUTF("1 корпус, 2 этаж, по правой стороне"); // отсылаем клиенту обратно ответ на запрос.
                     out.flush(); // заставляем поток закончить передачу данных.
@@ -91,8 +95,8 @@ public class Server {
                     out.writeUTF(String.valueOf(java.util.Calendar.getInstance().getTime()));
                     out.flush();
                 } else {
-                    out.writeUTF("Что ты такое пишешь?"); // отсылаем клиенту обратно ответ на запрос.
-                    out.flush(); // заставляем поток закончить передачу данных.
+                    out.writeUTF("Что ты такое пишешь?");
+                    out.flush();
                 }
 
                 System.out.println("Waiting for the next line...");
@@ -103,14 +107,12 @@ public class Server {
             userLogger.fatal("fatal error message: " + ex.getMessage());
             rootLogger.error("error message: " + ex.getMessage());
             rootLogger.fatal("fatal error message: " + ex.getMessage());
-            System.out.println("Ух как не культурно!");
-            System.out.println("Кто ж так вырубает??");
         }
 
         rootLogger.info("Root Logger: " + user.showMeMessage());
 
         //debug
-        if (rootLogger.isDebugEnabled()) {
+        if (rootLogger.isDebugEnabled()) { //если откладка включена
             rootLogger.debug("RootLogger: In debug message");
             userLogger.debug("UserLogger in debug");
         }

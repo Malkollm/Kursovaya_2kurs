@@ -17,6 +17,4 @@ public class Commands {
     public static String str_const_morgue = "Морг";
     public static String str_const_restroom = "Туалет";
     public static String str_const_registry = "Регистратура";
-
-
 }
