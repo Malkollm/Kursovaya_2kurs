@@ -23,6 +23,8 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import static sample.Save_to_file.saveToFile;
+
 public class Main extends Application {
 
     @Override
@@ -79,7 +81,7 @@ public class Main extends Application {
 
             // текстовое поле для ввода команд
             final TextField userTextField = new TextField();
-            userTextField.setMinSize(150,25); //минимальный размер окна
+            userTextField.setMinSize(150, 25); //минимальный размер окна
             grid.add(userTextField, 1, 1); //расположение на сцене
 
 
@@ -89,7 +91,6 @@ public class Main extends Application {
             // метка
             final Label lraspologenye = new Label(" - ");
             grid.add(lraspologenye, 1, 2);
-
 
 
             ////////////////////////////////
@@ -116,12 +117,18 @@ public class Main extends Application {
             hbClear.getChildren().add(bClear);
             grid.add(hbClear, 1, 4);
 
+            // кнопка
+            Button bSave = new Button("Сохранить");
+            HBox hbSave = new HBox(10);
+            hbSave.setAlignment(Pos.BOTTOM_RIGHT);
+            hbSave.getChildren().add(bSave);
+            grid.add(hbSave, 0, 3);
+
             Button bHelp = new Button("Справка");
             final HBox hbHelp = new HBox(10);
             hbHelp.setAlignment(Pos.BOTTOM_RIGHT);
             hbHelp.getChildren().add(bHelp);
             grid.add(hbHelp, 0, 4);
-
 
 
             /////////////////////////////////
@@ -153,45 +160,53 @@ public class Main extends Application {
             bClear.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
-                 userTextField.clear();
+                    userTextField.clear();
                     lraspologenye.setText(" - ");
                 }
             });
 
 
-            // событие кнопки "Справка"
-            bHelp.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    Stage dialogStage = new Stage(); //новое окно под справку
-                    dialogStage.setTitle("Справка"); //заголовок
-                    dialogStage.setMinWidth(500); //размер окна
-                    dialogStage.setMinHeight(350);
-                    String string = "Основная задача программы: пользователь вводит команду запроса, " +
-                            "\n к примеру Хирургическое отделение " +
-                            "\n и в строке результата ему будет указано как пройти " +
-                            "\n до нужного ему отделения или места в больнице" +
-                            "\n Команды для поиска(выберите нужную и вбейте в поиск): " +
-                            "\n Дата" +
-                            "\n Хирургическое отделение" +
-                            "\n Родильное отделение" +
-                            "\n Онкологическое отделение" +
-                            "\n Кардиологическое отделение" +
-                            "\n Эндоскопическое отделение" +
-                            "\n Стоматологическое отделение" +
-                            "\n Нефрологическое отделение" +
-                            "\n Кризисное отделение" +
-                            "\n Морг" +
-                            "\n Туалет" +
-                            "\n Регистратура";
-                    final TextArea textArea = new TextArea(string); //компонент текстовое поле
-                    textArea.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14)); //шрифт
-                    textArea.setMaxSize(500, 600); //размер компоненты
-                    Scene scene = new Scene(textArea); //создаем сцену для выравнивания компоненты
-                    dialogStage.setScene(scene);//добавляем сцену в окно
-                    dialogStage.showAndWait(); //окно на виду, ожидая закрытия пользователем
-                }
-            });
+            bSave.setOnAction(new EventHandler<ActionEvent>() {
+                                  @Override
+                                  public void handle(ActionEvent e) {
+                                      saveToFile(userTextField.getText());
+                                  }
+                              });
+
+
+                    // событие кнопки "Справка"
+                    bHelp.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            Stage dialogStage = new Stage(); //новое окно под справку
+                            dialogStage.setTitle("Справка"); //заголовок
+                            dialogStage.setMinWidth(500); //размер окна
+                            dialogStage.setMinHeight(350);
+                            String string = "Основная задача программы: пользователь вводит команду запроса, " +
+                                    "\n к примеру Хирургическое отделение " +
+                                    "\n и в строке результата ему будет указано как пройти " +
+                                    "\n до нужного ему отделения или места в больнице" +
+                                    "\n Команды для поиска(выберите нужную и вбейте в поиск): " +
+                                    "\n Дата" +
+                                    "\n Хирургическое отделение" +
+                                    "\n Родильное отделение" +
+                                    "\n Онкологическое отделение" +
+                                    "\n Кардиологическое отделение" +
+                                    "\n Эндоскопическое отделение" +
+                                    "\n Стоматологическое отделение" +
+                                    "\n Нефрологическое отделение" +
+                                    "\n Кризисное отделение" +
+                                    "\n Морг" +
+                                    "\n Туалет" +
+                                    "\n Регистратура";
+                            final TextArea textArea = new TextArea(string); //компонент текстовое поле
+                            textArea.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14)); //шрифт
+                            textArea.setMaxSize(500, 600); //размер компоненты
+                            Scene scene = new Scene(textArea); //создаем сцену для выравнивания компоненты
+                            dialogStage.setScene(scene);//добавляем сцену в окно
+                            dialogStage.showAndWait(); //окно на виду, ожидая закрытия пользователем
+                        }
+                    });
 
             primaryStage.show(); // запускаем окно
 
