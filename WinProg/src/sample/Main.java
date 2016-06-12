@@ -23,8 +23,6 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import static sample.Save_to_file.saveToFile;
-
 public class Main extends Application {
 
     @Override
@@ -117,12 +115,12 @@ public class Main extends Application {
             hbClear.getChildren().add(bClear);
             grid.add(hbClear, 1, 4);
 
-            // кнопка
+           /* // кнопка
             Button bSave = new Button("Сохранить");
             HBox hbSave = new HBox(10);
             hbSave.setAlignment(Pos.BOTTOM_RIGHT);
             hbSave.getChildren().add(bSave);
-            grid.add(hbSave, 0, 3);
+            grid.add(hbSave, 0, 3);*/
 
             Button bHelp = new Button("Справка");
             final HBox hbHelp = new HBox(10);
@@ -166,12 +164,12 @@ public class Main extends Application {
             });
 
 
-            bSave.setOnAction(new EventHandler<ActionEvent>() {
+            /*bSave.setOnAction(new EventHandler<ActionEvent>() {
                                   @Override
                                   public void handle(ActionEvent e) {
                                       saveToFile(userTextField.getText());
                                   }
-                              });
+                              });*/
 
 
                     // событие кнопки "Справка"
