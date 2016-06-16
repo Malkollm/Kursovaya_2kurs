@@ -68,8 +68,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0833334">
-              <caret line="171" column="35" selection-start-line="171" selection-start-column="35" selection-end-line="171" selection-end-column="35" />
+            <state vertical-scroll-proportion="2.6392858">
+              <caret line="133" column="43" selection-start-line="133" selection-start-column="43" selection-end-line="133" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1083,14 +1083,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
@@ -1112,10 +1104,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0833334">
-          <caret line="171" column="35" selection-start-line="171" selection-start-column="35" selection-end-line="171" selection-end-column="35" />
+        <state vertical-scroll-proportion="2.6392858">
+          <caret line="133" column="43" selection-start-line="133" selection-start-column="43" selection-end-line="133" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -11,16 +11,22 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class Server {
+public class Server extends User{
     // Подключаем запись логов к проекту, логи пишутся в файл и консоль
     static final org.apache.log4j.Logger rootLogger = LogManager.getRootLogger();
     static final org.apache.log4j.Logger userLogger = LogManager.getLogger(User.class);
 
+    public Server(String nameUs, String lastNameUs) {
+        super(nameUs, lastNameUs);
+    }
+
     public static void main(String[] args) throws UnknownHostException {
+
         //Объект класса user
-        User user = new User();
-        //передаем методу из класса user имя
-        user.setName("Ulia");
+        User user = new User("Марсель", "Фаткуллин");
+        System.out.println("Имя пользователя " + user.nameUs + " " + user.lastNameUs);
+
+
         //Выводим 2 сообщения уровня Инфо
         userLogger.info(user.showMeMessage());
         userLogger.info(user.giveMeASign());

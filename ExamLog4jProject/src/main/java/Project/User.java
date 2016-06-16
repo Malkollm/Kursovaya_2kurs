@@ -3,9 +3,13 @@ package Project;
 import java.util.Random;
 
 public class User {
-
-    private String name;
-    private String lastName;
+    //Наследование
+    String nameUs; //будет передавать имя пользователя
+    String lastNameUs;
+    public User(String nameUs, String lastNameUs){ //конструктор
+        this.nameUs=nameUs; //ссылка на текщий объект
+        this.lastNameUs=lastNameUs;
+    }
 
     public String showMeMessage() {
         return "Random number of this log";
@@ -14,18 +18,5 @@ public class User {
     public Integer giveMeASign() {
         Random random = new Random();
         return random.nextInt();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 }
