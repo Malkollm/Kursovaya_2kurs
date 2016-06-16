@@ -112,17 +112,9 @@ public class Server {
         rootLogger.info("Root Logger: " + user.showMeMessage());
 
         //debug
-        if (rootLogger.isDebugEnabled()) { //если откладка включена
+        if (rootLogger.isDebugEnabled()) { //если отладка включена
             rootLogger.debug("RootLogger: In debug message");
             userLogger.debug("UserLogger in debug");
-        }
-
-        try {
-            User userNull = new User();
-            userNull.getName().toString();
-        } catch (NullPointerException ex) {
-            userLogger.error("error message: " + ex.getMessage());
-            userLogger.fatal("fatal error message: " + ex.getMessage());
         }
     }
 }
