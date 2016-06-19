@@ -9,30 +9,51 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
+import java.util.Random;
 
 public class Server extends User{
     // Подключаем запись логов к проекту, логи пишутся в файл и консоль
     static final org.apache.log4j.Logger rootLogger = LogManager.getRootLogger();
     static final org.apache.log4j.Logger userLogger = LogManager.getLogger(User.class);
 
-    public Server(String nameUs, String lastNameUs) {
-        super(nameUs, lastNameUs);
+    public Server(String strRandom) {
+        super(strRandom);
     }
 
-    public static void main(String[] args) throws UnknownHostException {
 
-        //Объект класса user
+    public static void main(String[] args) throws Exception {
+        Random random = new Random();
+
+        //переопределили User.doSomething на ChildClass.doSomething
+        User userClass = new ChildClass("");
+        userClass.doSomething("Марсель Фаткуллин");
+
+        //user - объект класса User
+        //передаем от подкласса строку суперклассу
+        User user = new User("Рандомное число запуска программы");
+        System.out.println(user.strRandom);
+
+        //записываем рандомное число [0,99] при каждом запуске сервера
+        User us = new User(random.nextInt(99));
+        System.out.println("Число " + us.randNumbLog);
+
+        //запись инфо сообщения в лог файл с числом данного запуска сервера
+        rootLogger.info("Запись в лог файл: " + user.strRandom + " " + us.randNumbLog);
+
+       /* //Объект класса user
         User user = new User("Марсель", "Фаткуллин");
-        System.out.println("Имя пользователя " + user.nameUs + " " + user.lastNameUs);
+        System.out.println("Имя пользователя " + user.nameUs + " " + user.lastNameUs);*/
 
 
-        //Выводим 2 сообщения уровня Инфо
+        /*//Выводим 2 сообщения уровня Инфо
         userLogger.info(user.showMeMessage());
-        userLogger.info(user.giveMeASign());
+        userLogger.info(user.giveMeASign());*/
 
         int port = 6666; // случайный порт (может быть любое число от 1025 до 65535)
         try {
+            //использование оператора throw, для обработки исключения, проверяем порт на правильность диапазона
+            if ((port < 1025) || (port > 65535)) throw new Exception("Порт не найден");
+
             ServerSocket ss = new ServerSocket(port); // создаем сокет сервера и привязываем его к вышеуказанному порту
             System.out.println("Waiting for a client...");
 
@@ -101,7 +122,7 @@ public class Server extends User{
                     out.writeUTF(String.valueOf(java.util.Calendar.getInstance().getTime()));
                     out.flush();
                 } else {
-                    out.writeUTF("Что ты такое пишешь?");
+                    out.writeUTF("Запрос не найден");
                     out.flush();
                 }
 
@@ -114,8 +135,6 @@ public class Server extends User{
             rootLogger.error("error message: " + ex.getMessage());
             rootLogger.fatal("fatal error message: " + ex.getMessage());
         }
-
-        rootLogger.info("Root Logger: " + user.showMeMessage());
 
         //debug
         if (rootLogger.isDebugEnabled()) { //если отладка включена
