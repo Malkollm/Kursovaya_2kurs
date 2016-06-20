@@ -51,7 +51,7 @@ public class Main extends Application {
             // в sample.fxml прописываются компоненты, их свойства
             final Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
-            primaryStage.setTitle("Помогалка"); // задаем заголовок окна
+            primaryStage.setTitle("Кратчайший путь"); // задаем заголовок окна
 
             // создаем сцену с заданными шириной и высотой  и связываем ее с окном
             primaryStage.setScene(new Scene(root, 300, 400));

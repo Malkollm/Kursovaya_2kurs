@@ -25,7 +25,7 @@ public class Server extends User{
         Random random = new Random();
 
         //переопределили User.doSomething на ChildClass.doSomething
-        User userClass = new ChildClass("");
+        User userClass = new ChildClass(" ");
         userClass.doSomething("Марсель Фаткуллин");
 
         //user - объект класса User
@@ -39,15 +39,6 @@ public class Server extends User{
 
         //запись инфо сообщения в лог файл с числом данного запуска сервера
         rootLogger.info("Запись в лог файл: " + user.strRandom + " " + us.randNumbLog);
-
-       /* //Объект класса user
-        User user = new User("Марсель", "Фаткуллин");
-        System.out.println("Имя пользователя " + user.nameUs + " " + user.lastNameUs);*/
-
-
-        /*//Выводим 2 сообщения уровня Инфо
-        userLogger.info(user.showMeMessage());
-        userLogger.info(user.giveMeASign());*/
 
         int port = 6666; // случайный порт (может быть любое число от 1025 до 65535)
         try {

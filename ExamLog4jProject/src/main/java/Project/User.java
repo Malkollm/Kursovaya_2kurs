@@ -1,13 +1,6 @@
 package Project;
 
 public class User {
-    //Наследование
-    /*String nameUs; //будет передавать имя пользователя
-    String lastNameUs;
-    public User(String nameUs, String lastNameUs){ //конструктор
-        this.nameUs=nameUs; //ссылка на текщий объект
-        this.lastNameUs=lastNameUs;
-    }*/
 
     //это мы переопределили на ChildClass.doSomething
     public void doSomething(String str){
